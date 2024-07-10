@@ -1,0 +1,54 @@
+# Comando para Contruir Imagen del MS client-gateway
+# docker build -f 'dockfile' -t 'nameImgage' . (raiz) 
+# docker build -f dockerfile.prod -t  client-gateway . 
+
+#Dependecias
+
+FROM node:21-alpine3.19 as deps
+
+WORKDIR /usr/src/app
+
+COPY package.json ./
+COPY package-lock.json ./
+
+RUN npm install
+
+#Builder - Contruye la Aplicacion
+FROM node:21-alpine3.19 as build
+
+WORKDIR /usr/src/app
+
+#Copiar de deps, los modulos de Node
+COPY --from=deps /usr/src/app/node_modules ./node_modules
+
+#Copiar de raiz, el codigo fuente de la aplicacion
+COPY . .
+
+#RUN npm run test
+
+RUN npm run build
+
+#Instala solo las dependecia de produccion (reduce el peso)
+RUN npm ci -f --only=production && npm cache clear --force
+
+# Crear la Image Final de Docker
+FROM node:21-alpine3.19 as prod
+
+WORKDIR /usr/src/app
+
+#Copiar de deps, los modulos de Node
+COPY --from=build /usr/src/app/node_modules ./node_modules
+
+#Copia la carpeta de DIST
+COPY --from=build /usr/src/app/dist ./dist
+
+
+ENV NODE_ENV=produccion
+
+#Nos cambiaros de Usuario (root) debido a que este tiene muchos privilegios
+USER node
+
+
+EXPOSE 3000
+
+CMD [ "node","dist/main.js" ]
