@@ -4,7 +4,7 @@ steps:
       [
         "build",
         "-t",
-        "northamerica-northeast1-docker.pkg.dev/products-launcher-ms/products-launcher-ms/auth-ms",
+        "northamerica-northeast1-docker.pkg.dev/products-launcher-ms/products-launcher-ms/client-gateway-ms",
         "-f",
         "dockerfile.prod",
         "--platform=linux/amd64",
@@ -14,5 +14,5 @@ steps:
     args:
       [
         "push",
-        "northamerica-northeast1-docker.pkg.dev/products-launcher-ms/products-launcher-ms/auth-ms",
+        "northamerica-northeast1-docker.pkg.dev/products-launcher-ms/products-launcher-ms/client-gateway-ms",
       ]
