@@ -1,3 +1,6 @@
+
+options:
+  logging: 'CLOUD_LOGGING_ONLY'
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -10,15 +13,10 @@ steps:
         "--platform=linux/amd64",
         ".",
       ]
-  logsBucket: 'gs://mylogsbucket'
-  options:
-    logging: GCS_ONLY
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
         "push",
         "northamerica-northeast1-docker.pkg.dev/products-launcher-ms/products-launcher-ms/client-gateway",
       ]
-  logsBucket: 'gs://mylogsbucket'
-  options:
-    logging: GCS_ONLY  
+serviceAccount: '957959933788-compute@developer.gserviceaccount.com'      
