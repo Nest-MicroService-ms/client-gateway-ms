@@ -11,8 +11,8 @@ steps:
         ".",
       ]
   logsBucket: 'gs://mylogsbucket'
-    options:
-      logging: GCS_ONLY
+  options:
+    logging: GCS_ONLY
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
@@ -20,5 +20,5 @@ steps:
         "northamerica-northeast1-docker.pkg.dev/products-launcher-ms/products-launcher-ms/client-gateway",
       ]
   logsBucket: 'gs://mylogsbucket'
-    options:
-      logging: GCS_ONLY  
+  options:
+    logging: GCS_ONLY  
