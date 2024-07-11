@@ -1,13 +1,10 @@
-
-options:
-  logging: 'CLOUD_LOGGING_ONLY'
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
         "build",
         "-t",
-        "northamerica-northeast1-docker.pkg.dev/products-launcher-ms/products-launcher-ms/client-gateway",
+        "northamerica-northeast1-docker.pkg.dev/products-launcher-ms/products-launcher-ms/client-gateway-ms",
         "-f",
         "dockerfile.prod",
         "--platform=linux/amd64",
@@ -17,6 +14,7 @@ steps:
     args:
       [
         "push",
-        "northamerica-northeast1-docker.pkg.dev/products-launcher-ms/products-launcher-ms/client-gateway",
+        "northamerica-northeast1-docker.pkg.dev/products-launcher-ms/products-launcher-ms/client-gateway-ms",
       ]
-serviceAccount: '957959933788-compute@developer.gserviceaccount.com'      
+options:
+  logging: 'CLOUD_LOGGING_ONLY'
